@@ -24,5 +24,8 @@ export XNAT_USER=username   #put in your XNAT username in place of username
 export XNAT_PASS=password   #put in your XNAT password in place of password
 export PATH=/PathToMasimatlab/trunk/xnatspiders/Xnat_tools:$PATH
 
-#download xnat (see necessary arguments here:https://dax.readthedocs.io/en/latest/dax_command_line_tools.html) 
-Xnatdownload --host http://xnat.vanderbilt.edu/xnat -u bressks -p ASDREST -d /home/bressks
+#download data from xnat (see necessary arguments here:https://dax.readthedocs.io/en/latest/dax_command_line_tools.html) 
+#to download the R matrix 
+Xnatdownload --host http://xnat.vanderbilt.edu/xnat -u bressks -p ASDREST -d /home/bressks -a conncalc_asdr_v2 --ra RMATRIX
+
+#remember that the data is being downloaded onto the Linux virtual machine subsystem - if you want to do anything with the files on the computer, you will need to copy them from the subsystem to the PC!
