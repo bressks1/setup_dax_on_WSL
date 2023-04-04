@@ -1,0 +1,28 @@
+#adapted from: https://dax.readthedocs.io/en/latest/installing_dax_in_a_virtual_environment.html
+#adapted from: https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html (creating environments)
+
+#must have WSL installed
+#must have anaconda3 and miniconda installed (see other file) 
+
+#make sure you exit the miniconda environment 
+exit()
+
+#create a new environement in python
+conda create -n daxvenv python=3.10
+
+#you can now activate or deactivate this environment
+conda activate daxvenv    # Activation of environment
+conda deactivate          # Deactivation of environment
+
+#install DAX 
+conda activate daxenv
+pip install dax
+
+#Configure environment variables
+export XNAT_HOST=http://xnat.vanderbilt.edu/xnat
+export XNAT_USER=username   #put in your XNAT username in place of username 
+export XNAT_PASS=password   #put in your XNAT password in place of password
+export PATH=/PathToMasimatlab/trunk/xnatspiders/Xnat_tools:$PATH
+
+#download xnat (see necessary arguments here:https://dax.readthedocs.io/en/latest/dax_command_line_tools.html) 
+Xnatdownload --host http://xnat.vanderbilt.edu/xnat -u bressks -p ASDREST -d /home/bressks
