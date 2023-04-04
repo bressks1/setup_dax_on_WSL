@@ -2,7 +2,7 @@
 #adapted from: https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html (creating environments)
 
 #must have WSL installed
-#must have anaconda3 and miniconda installed (see other file) 
+#must have anaconda3 and miniconda installed (see install_anaconda_miniconda_on_WSL) 
 
 #make sure you exit the miniconda environment 
 exit()
