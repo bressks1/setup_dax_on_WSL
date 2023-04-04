@@ -1,0 +1,26 @@
+#this should be run in a Linux Subsystem for Windows
+#you need to install the WSL first before doing these steps
+#adapted from: https://gist.github.com/kauffmanes/5e74916617f9993bc3479f401dfec7da (for anaconda3)
+#adapted from: https://kontext.tech/article/1064/install-miniconda-and-anaconda-on-wsl-2-or-linux (for miniconda)
+
+#[1] check to see if conda is installed
+conda 
+#[2] if not, install it
+wget https://repo.continuum.io/archive/Anaconda3-5.2.0-Linux-x86_64.sh
+#[3] run the program, read the licensing aggreement and accept yes
+bash Anaconda3-5.2.0-Linux-x86_64.sh
+#[4] Read the license agreement and follow the prompts to accept. When asks you if you'd like the installer to prepend it to the path, say yes.
+#[5] Close the terminal and reopen it to reload .bash configs.
+#[6] To test that it worked, run
+which python
+#[7] It should print a path that has anaconda in it: 
+/home/bressks/anaconda3/bin/python
+
+#[8]Now you need to install miniconda 
+sudo apt-get update
+sudo apt-get install wget
+wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.12.0-Linux-x86_64.sh
+sh ./Miniconda3-py39_4.12.0-Linux-x86_64.sh
+
+#INSTALL LOCATION ANACONDA: [/home/bressks/anaconda3/bin/python]
+#INSTALL LOCATION MINICONDA = [/home/bressks/miniconda3]
