@@ -1,31 +1,69 @@
 #adapted from: https://dax.readthedocs.io/en/latest/installing_dax_in_a_virtual_environment.html
 #adapted from: https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html (creating environments)
 
-#must have WSL installed
-#must have anaconda3 and miniconda installed (see install_anaconda_miniconda_on_WSL) 
+#you must have WSL installed
+#you must have anaconda3 and miniconda installed (see install_anaconda_miniconda_on_WSL) 
+#you must have git installed = https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+#you must have pyxnat installed = https://pyxnat.github.io/pyxnat/installing.html
 
-#make sure you exit the miniconda environment 
+#EXIT MINICONDA ENVIRONMENT 
 exit()
 
-#create a new environement in python
+#CREATE THE DAXENV ENVIRONMENT IN PYTHON
 conda create -n daxvenv python=3.10
 
 #you can now activate or deactivate this environment
 conda activate daxvenv    # Activation of environment
 conda deactivate          # Deactivation of environment
 
-#install DAX 
+#INSTALL DAX 
 conda activate daxenv
 pip install dax
 
-#Configure environment variables
-export XNAT_HOST=http://xnat.vanderbilt.edu/xnat
-export XNAT_USER=username   #put in your XNAT username in place of username 
-export XNAT_PASS=password   #put in your XNAT password in place of password
-export PATH=/PathToMasimatlab/trunk/xnatspiders/Xnat_tools:$PATH
+#EDIT ~/.netrc FILE
+vi ~/.netrc
+#Hit the insert key - this will allow you to type in the file. Enter the following information
+machine xnat.vanderbilt.edu
+login username   #type your personal username in place of username 
+password password #type your personal password in place of password 
+#Check the permissions of the ~/.netrc file to make sure it is only readable/writable to the user (you) 
+ls -l ~/.netrc
+#output should read something like: 
+rw---- 1 bressks bressks 
 
-#download data from xnat (see necessary arguments here:https://dax.readthedocs.io/en/latest/dax_command_line_tools.html) 
-#to download the R matrix 
-Xnatdownload --host http://xnat.vanderbilt.edu/xnat -u bressks -p ASDREST -d /home/bressks -a conncalc_asdr_v2 --ra RMATRIX
+#TIPS FOR EDITING FILES IN THE TERMINAL 
+#Save edits you have made - hit ESC then:
+  :wq
+#Delete a file generated accidentally 
+  rm filepath
 
-#remember that the data is being downloaded onto the Linux virtual machine subsystem - if you want to do anything with the files on the computer, you will need to copy them from the subsystem to the PC!
+#USING COMMAND LINE TOOLS WITH DAX 
+#https://dax.readthedocs.io/en/latest/dax_command_line_tools.html - there is some information here about setting environment variables in your ~/.bashrc file - for some reason this returns errors for me, so I enter the host/user/password information with the commands 
+
+#Open the WSL and start dax environment: 
+  conda activate daxvenv
+#If that doesn't work you need to recreate the environment: 
+  conda create -n daxvenv python=3.10
+#Configure the environment variables 
+  export XNAT_HOST=https://xnat.vanderbilt.edu/xnat     #make sure this is https:// not http:// 
+  export XNAT_USER=username  #type your personal username in place of username  
+  export PATH=/PathToMasimatlab/trunk/xnatspiders/Xnat_tools:$PATH
+#check that everything is ready to run  
+  XnatCheckLogin
+#This should return the output: 
+  No host specified, using XNAT_HOST environment variable.
+  Checking login for host=https://xnat.vanderbilt.edu/xnat
+  Checking connection:host=https://xnat.vanderbilt.edu/xnat, user=bressks
+  --> Good login.
+
+#HOW TO DOWNLOAD DATA FROM XNAT (see necessary arguments here:https://dax.readthedocs.io/en/latest/dax_command_line_tools.html) 
+#DOWNLOAD THE R MATRIX: 
+ Xnatdownload --host https://xnat.vanderbilt.edu/xnat -u bressks -p ASDREST -d /home/bressks -a conncalc-asdr_v1 --ra RMATRIX
+#this should produce 2 files: [1] a .txt file which contains a copy of the command you ran [2] The .csv file with the matrix 
+#remember that the data is being downloaded onto the Linux virtual machine subsystem - if you want to do anything with the files on the actual compute, you will need to copy them from the subsystem to the PC
+
+#HOW TO COPY DATA BETWEEN VM & LOCAL MACHINE (your computer)  
+#If you want to copy data from the VIRTUAL MACHINE > LOCAL MACHINE, you can do this in the file explorer
+#If you want to copy data from the LOCAL MACHINE > VIRTUAL MACHINE, you need to use the commands below: 
+  sudo cp /mnt/c/asdr.nii.gz  /home/bressks
+  #where /mnt/c/asdr.nii.gz = path and filename saved on the OS C: Drive and /home/bressks is the current working directory in the WSL. 
