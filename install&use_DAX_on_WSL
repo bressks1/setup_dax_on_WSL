@@ -28,6 +28,8 @@ login username   #type your personal username in place of username
 password password #type your personal password in place of password 
 #Check the permissions of the ~/.netrc file to make sure it is only readable/writable to the user (you) 
 ls -l ~/.netrc
+#if doing this on mac, you might need to change the .netrc file permissions using the following
+$ chmod 600 ~/.netrc
 #output should read something like: 
 rw---- 1 bressks bressks 
 
