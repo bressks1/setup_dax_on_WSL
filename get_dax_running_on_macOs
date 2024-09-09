@@ -1,0 +1,26 @@
+#follow these steps to setup dax commands on macOS 
+
+#STEP ONE: YOU NEED PYTHON 
+1. Go to https://www.anaconda.com/download and download anaconda distribution (contains the most recent version of python) 
+2. Go to https://docs.anaconda.com/miniconda/ and download miniconda 
+
+#STEP TWO: CREATE DAX ENVIRONMENT
+1. python --version   #this will give you the version of python on the computer
+2. conda create -n daxvenv python=3.8  (don't use a version above 3.11) 
+3. conda activate daxenv
+4. pip install dax
+
+#STEP THREE: CONFIGURE XNAT
+1. export XNAT_HOST=https://xnat.vanderbilt.edu/xnat     #make sure this is https:// not http:// 
+2. export XNAT_USER=username  #type your personal username in place of username (e.g. bressks)
+3. export PATH=/PathToMasimatlab/trunk/xnatspiders/Xnat_tools:$PATH
+4. XnatCheckLogin
+
+#This should return the output: 
+  No host specified, using XNAT_HOST environment variable.
+  Checking login for host=https://xnat.vanderbilt.edu/xnat
+  Checking connection:host=https://xnat.vanderbilt.edu/xnat, user=bressks
+  --> Good login.
+
+#if you prefer that conda's base environment not be activated on startup, run:  conda config --set auto_activate_base false
+#this can be reversed by running: 'conda init --reverse $SHELL'
